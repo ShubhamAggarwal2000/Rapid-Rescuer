@@ -1,1 +1,47 @@
-#algos_here
+import cv2
+import numpy as np
+digit_loc=[]
+img_arr=[]
+CELL_SIZE=20
+def readImage(img_file_path):
+    img1 = cv2.imread(img_file_path)
+    gray = cv2.cvtColor(img1, cv2.COLOR_BGR2GRAY)
+    ret, binary_img = cv2.threshold(gray, 100, 255, cv2.THRESH_BINARY)
+    return binary_img
+
+img_file_path='maze00.jpg'
+maze1 = readImage(img_file_path)
+height, width = maze1.shape
+rows = int(height / CELL_SIZE)  # number of cells in height of maze image
+cols = int(width / CELL_SIZE)  # number of cells in width of maze image
+
+def maze_iso(img):
+    global rows
+    global cols
+    global digit_loc
+    d1=0
+    for r in range(10,20*(rows-1)-10,20):
+        for c in range(10,20*(cols-1)-10,20):
+            for i in range(c-7,c+6):
+                if (img[r][i+1]-img[r][i])==-1:
+                    digit_loc.append((r,c))
+                    d1=d1+1
+                    break
+    temp=np.zeros([16,16], dtype=int)
+    ii=0
+    jj=0
+    for y in range(0,d1-1):
+        for i in range(digit_loc[y][0]-7,digit_loc[y][0]+7):
+            for j in range(digit_loc[y][1]-7,digit_loc[y][1]+7):
+                temp[ii][jj]=img[i][j]
+                ii=ii+1
+                jj=jj+1
+        img_arr.append(temp)
+    return img_arr
+
+
+bin_img=readImage(img_file_path)
+final=maze_iso(bin_img)
+cv2.imshow("final" ,final )
+cv2.waitKey(0)
+cv2.destroyAllWindows
