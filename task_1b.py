@@ -74,7 +74,12 @@ def connect_to_server(SERVER_ADDRESS):
 	sock = None
 	
 	#############  Add your Code here   ###############
-
+    
+	
+	sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+	sock.connect(('127.0.0.1', 3333))
+	#message=s.recv(1024)
+	#print(message.decode("utf8"))
 	
 
 	###################################################
@@ -84,25 +89,26 @@ def connect_to_server(SERVER_ADDRESS):
 ##  Function that sends and receives data from server
 def send_to_receive_from_server(sock, shortestPath):
 
-	sent_data = ''
-	recv_data = ''
+	sent_data1 = ''
+	recv_data1 = ''
 
 	#############  Add your Code here   ###############
 
-	sent_data = str(file_num) + '|' + '#' + str(shortestPath) + '#'
-	
+	sent_data1 = str(file_num) + '|' + '#' + str(shortestPath) + '#'
+	print(sent_data1)
 	# Send data
-	sock.sendall(sent_data.encode())
+	sock.sendall(sent_data1.encode())
 
 	# Look for the response
 	# amount_received = 0
-	recv_data = sock.recv(1024) # earlier 128
-	recv_data = recv_data.decode()
+	recv_data1 = sock.recv(1024) # earlier 128
+	recv_data1 = recv_data.decode()
 	# amount_received += len(recv_data)
+	#recv_data1='@(7,1)@'
 
 	###################################################
 
-	return sent_data, recv_data
+	return sent_data1, recv_data1
 
 ##  Function that computes new shortest path from cell adjacent to obstacle to final_point
 def find_new_path(recv_data, shortestPath):
@@ -202,7 +208,7 @@ if __name__ == '__main__':
 	
 		print('\n============================================')
 		print('\nFor maze0' + str(file_num) + '.jpg')
-		
+		connect_to_server(SERVER_ADDRESS)
 		# Create socket connection with server
 		try:
 			sock = connect_to_server(SERVER_ADDRESS)
@@ -309,7 +315,7 @@ if __name__ == '__main__':
 				print('\n[ERROR] sent / received data to / from server is not in proper format !\n')
 				exit()
 		
-		if (obstacle_count == 0):	print('\nNo Dynamic Obstacle for the image')
+		if (obstacle_count == 0):	print('\nNo Dyn amic Obstacle for the image')
 		
 		else:	print('\nNo more Dynamic Obstacle for the image')
 
