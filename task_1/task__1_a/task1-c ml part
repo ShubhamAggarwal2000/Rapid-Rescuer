@@ -13,7 +13,7 @@ def readImage(img_file_path):
     return binary_img
 
 
-img_file_path = 'maze00.jpg'
+img_file_path = 'maze03.jpg'
 
 rows = 10
 cols = 10
@@ -44,6 +44,9 @@ def maze_iso(img):
         str1 = 'temp' + str(y)
         cv2.imshow(str1, temp)
         # print(img_arr)
+    global l
+    l=len(img_arr)
+    print((len(img_arr)))
     return img_arr
 
 
@@ -53,8 +56,7 @@ final = maze_iso(bin_img)
 
 import tensorflow as tf
 mnist = tf.keras.datasets.mnist
-(x_train, y_train), (
-x_test, y_test) = mnist.load_data()
+(x_train, y_train), (x_test, y_test) = mnist.load_data()
 
 x_train = tf.keras.utils.normalize(x_train, axis=1)
 x_test = tf.keras.utils.normalize(x_test, axis=1)
@@ -64,8 +66,13 @@ model = tf.keras.models.Sequential()
 model.add(tf.keras.layers.Flatten())
 model.add(
     tf.keras.layers.Dense(128, activation=tf.nn.relu))
-# model.add(
-#     tf.keras.layers.Dense(128, activation=tf.nn.relu))
+model.add(tf.keras.layers.Dropout(0.25))
+
+model.add(
+    tf.keras.layers.Dense(128, activation=tf.nn.relu))
+model.add(
+    tf.keras.layers.Dense(128, activation=tf.nn.relu))
+model.add(tf.keras.layers.Dropout(0.25))
 
 model.add(
     tf.keras.layers.Dense(128, activation=tf.nn.relu))
@@ -77,15 +84,15 @@ model.compile(optimizer='adam',
 
               metrics=['accuracy'])
 
-model.fit(x_train, y_train, epochs=7)
+model.fit(x_train, y_train, epochs=20)
 
 val_loss, val_acc = model.evaluate(x_test, y_test)
 print(val_loss)
 print(val_acc)
-
+# model=  tf.keras.models.load_model('num_reader.model')
 predict = []
-for i in range(6):
-    test = np.reshape(test, (6, 28, 28, 1))
+for i in range(l):
+    test = np.reshape(test, (l, 28, 28, 1))
     predictions = model.predict(test)
     print(np.argmax(predictions[i]))
     predict.append(np.argmax(predictions[i]))
