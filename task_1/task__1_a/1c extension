@@ -1,0 +1,32 @@
+shortestPath=[(0,0),(0,1),(0,2),(0,3),(0,4),(1,4),(2,4),(3,4),(3,5)]
+inner_path=[]
+outer_path=[]
+for i in range(0,len(shortestPath)-1):
+    if shortestPath[i][0]==shortestPath[i+1][0]:
+        incell=(shortestPath[i][0]+1,shortestPath[i][1])
+        outcell1=(shortestPath[i][0]-1,shortestPath[i][1])
+        outcell2 = (shortestPath[i+1][0] - 1, shortestPath[i+1][1])
+        if incell not in inner_path:
+            inner_path.append(incell)
+        if outcell1 not in outer_path:
+            outer_path.append(outcell1)
+        if outcell2 not in outer_path:
+            outer_path.append(outcell2)
+    if shortestPath[i][1]==shortestPath[i+1][1]:
+        incell = (shortestPath[i+1][0] , shortestPath[i+1][1]-1)
+        outcell1 = (shortestPath[i+1][0], shortestPath[i+1][1]+1)
+        outcell2 = (shortestPath[i][0], shortestPath[i][1] + 1)
+        if incell not in inner_path:
+            inner_path.append(incell)
+        if outcell1 not in outer_path:
+            outer_path.append(outcell1)
+        if outcell2 not in outer_path:
+            outer_path.append(outcell2)
+l=len(shortestPath)
+endi=(shortestPath[l-1][0]+1,shortestPath[l-1][1])
+outi=(shortestPath[l-1][0]-1,shortestPath[l-1][1])
+inner_path.append(endi)
+outer_path.append(outi)
+print(shortestPath)
+print(inner_path)
+print(outer_path)
