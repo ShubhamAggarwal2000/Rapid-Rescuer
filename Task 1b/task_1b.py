@@ -38,10 +38,7 @@ from datetime import datetime
 
 # IP address of server (for now, loopback address)
 SERVER_IP = '127.0.0.1'
-global k
-k=0
-global flag
-flag=0
+
 # Port number assigned to server
 SERVER_PORT = 3333
 SERVER_ADDRESS = (SERVER_IP, SERVER_PORT)
@@ -80,8 +77,6 @@ def connect_to_server(SERVER_ADDRESS):
 	
 	sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 	sock.connect(('127.0.0.1', 3333))
-	#message=s.recv(1024)
-	#print(message.decode("utf8"))
 	
 
 	###################################################
@@ -91,44 +86,28 @@ def connect_to_server(SERVER_ADDRESS):
 ##  Function that sends and receives data from server
 def send_to_receive_from_server(sock, shortestPath):
 
-	global k
-	# print(k)
-	global recv_data1
-	global flag
 
 
+	sent_data=''
+	recv_data=''
 
 	#############  Add your Code here   #############
-	sent_data1 = str(file_num) + '|' + '#' + str(shortestPath) + '#'
-	# print(sent_data1)
-	# Send data
-	if k==0:
+	sent_data = str(file_num) + '|' + '#' + str(shortestPath) + '#'
+	sock.sendall(sent_data.encode())
 
-		sock.sendall(sent_data1.encode())
-		recv_data1 = sock.recv(1024)  # earlier 128
-		# print(recv_data)
-		recv_data1 = recv_data1.decode()
+	recv_data = sock.recv(1024)  # earlier 128
+	# print(recv_data)
+	recv_data = recv_data.decode()
+	#print(recv_data)
 
 
 	# Look for the response
 	# amount_received = 0
 	#print("recv data= ",recv_data1)
 	# amount_received += len(recv_data)
-	if(flag==1):
-		k=0
-		flag=0
-	open_brack_idx1 = recv_data1.index('@',k)
-	#print(open_brack_idx1)
-	cl_brack_idx1 = recv_data1.find('@',open_brack_idx1+1)
-	#print(cl_brack_idx1)
-	recv_data=recv_data1[open_brack_idx1:cl_brack_idx1+1]
-	#print(recv_data)
-	k=cl_brack_idx1+1
-
-			#recv_data=recv_data1[]
 	###################################################
 
-	return sent_data1, recv_data
+	return sent_data, recv_data
 
 ##  Function that computes new shortest path from cell adjacent to obstacle to final_point
 def find_new_path(recv_data, shortestPath):
@@ -277,8 +256,6 @@ if __name__ == '__main__':
 		cv2.waitKey(0)
 
 		sent_data, recv_data = send_to_receive_from_server(sock, shortestPath)
-		print("Sent  data=",sent_data)
-		print("received data= ",recv_data)
 		if (sent_data.count('#') == 2) and (recv_data.count('@') == 2):
 			print('\nSending %d bytes of data to server = %s' %(len(sent_data), sent_data))
 			print('\nReceived %d bytes of data from server = %s' %(len(recv_data), recv_data))
@@ -290,6 +267,7 @@ if __name__ == '__main__':
 		else:
 			print('\n[ERROR] sent / received data to / from server is not in proper format !\n')
 			exit()
+
 
 		obstacle_count = 0
 		obstacle_list = []
@@ -354,7 +332,6 @@ if __name__ == '__main__':
 		choice = input('\nWant to run your script on all maze images ? ==>> "y" or "n": ')
 
 		if choice == 'y':
-			flag=1
 
 			if os.path.exists(output_file_name):
 
