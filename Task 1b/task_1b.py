@@ -19,11 +19,11 @@
 '''
 
 
-# Team ID:			2177
-# Author List:		Shubham Aggarwal , Gaurav NAgotanekar <nilendu Ganuli , Gukan
+# Team ID:			[ 2177 ]
+# Author List:		[ Shubham Aggarwal , Gaurav Nagotanekar <nilendu Ganuli , Gukan ] 
 # Filename:			task_1b.py
 # Functions:		connect_to_server, send_to_receive_from_server, find_new_path
-# 					[ Comma separated list of functions in this file ]
+# 					[ connect_to_server , send_to_recieve_from_server , find_new_path ]
 # Global variables:	SERVER_IP, SERVER_PORT, SERVER_ADDRESS
 # 					[ List of global variables defined in this file ]
 
