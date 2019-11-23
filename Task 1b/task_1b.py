@@ -19,8 +19,8 @@
 '''
 
 
-# Team ID:			[ Team-ID ]
-# Author List:		[ Names of team members worked on this file separated by Comma: Name1, Name2, ... ]
+# Team ID:			2177
+# Author List:		Shubham Aggarwal , Gaurav NAgotanekar <nilendu Ganuli , Gukan
 # Filename:			task_1b.py
 # Functions:		connect_to_server, send_to_receive_from_server, find_new_path
 # 					[ Comma separated list of functions in this file ]
