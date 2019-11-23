@@ -18,13 +18,13 @@
 */
 
 /*
-* Team ID:			[ Team-ID ]
-* Author List:		[ Names of team members worked on this file separated by Comma: Name1, Name2, ... ]
-* Filename:			task_1a.py
+* Team ID:			[ 2177 ]
+* Author List:		[ Gaurav Nagotanekar , Shubham Aggarwal , Nilendu ganguli ,Gukan ]
+* Filename:			robot-server.c
 * Functions:		readImage, solveMaze
-* 					[ Comma separated list of functions in this file ]
+* 					[ close_socket  , socket_create ,  ]
 * Global variables:	CELL_SIZE
-* 					[ List of global variables defined in this file ]
+* 					[ listen_sock , op , f , clc ,csock ]
 */
 
 
