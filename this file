@@ -53,31 +53,31 @@ count = 0
 
 def computeSum(img_file_path, shortestPath):
     """
-	Purpose:
-	---
-	the function takes file path of original image and shortest path as argument and returns list of digits, digits on path and sum of digits on path
+    Purpose:
+    ---
+    the function takes file path of original image and shortest path as argument and returns list of digits, digits on path and sum of digits on path
 
-	Input Arguments:
-	---
-	`img_file_path` :		[ str ]
-		file path of image
-	`shortestPath` :		[ list ]
-		list of coordinates of shortest path from initial_point to final_point
+    Input Arguments:
+    ---
+    `img_file_path` :		[ str ]
+        file path of image
+    `shortestPath` :		[ list ]
+        list of coordinates of shortest path from initial_point to final_point
 
-	Returns:
-	---
-	`digits_list` :	[ list ]
-		list of all digits on image
-	`digits_on_path` :	[ list ]
-		list of digits adjacent to the path from initial_point to final_point
-	`sum_of_digits_on_path` :	[ int ]
-		sum of digits on path
+    Returns:
+    ---
+    `digits_list` :	[ list ]
+        list of all digits on image
+    `digits_on_path` :	[ list ]
+        list of digits adjacent to the path from initial_point to final_point
+    `sum_of_digits_on_path` :	[ int ]
+        sum of digits on path
 
-	Example call:
-	---
-	original_binary_img = readImage(img_file_path)
+    Example call:
+    ---
+    original_binary_img = readImage(img_file_path)
 
-	"""
+    """
 
     #############  Add your Code here   ###############
     digits_list = []
@@ -85,11 +85,12 @@ def computeSum(img_file_path, shortestPath):
     sum_of_digits_on_path = 0
     img = readImage(img_file_path)
     digit_img_array, coordinate_of_num = maze_iso(img)
-    coor_num_on_path = compare(shortestPath, digit_loc, img)
+    coor_num_on_path = compare(shortestPath, coordinate_of_num, img)
     for i in range(len(digit_img_array)):
         digits_list.append(digit_recog(digit_img_array[i]))
     for i in range(len(coordinate_of_num)):
-        temp = digit_recog(coordinate_of_num[i])
+        im=img[(coordinate_of_num[i][0] - 16):(coordinate_of_num[i][0] + 16), (coordinate_of_num[i][1] - 16):(coordinate_of_num[i][1] + 16)]
+        temp = digit_recog(im)
         digits_on_path.append(temp)
         sum_of_digits_on_path += temp
 
@@ -140,7 +141,8 @@ def readImage(img_file_path):
     return binary_img
 
 
-def maze_iso(img, ):
+def maze_iso(img):
+    digit_loc=[]
     rows = int(height / task_1a.CELL_SIZE)
     cols = int(width / task_1a.CELL_SIZE)
     d1 = 0
