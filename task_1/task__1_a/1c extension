@@ -1,4 +1,4 @@
-shortestPath=[(0,0),(0,1),(0,2),(0,3),(0,4),(1,4),(2,4),(3,4),(3,5)]
+shortestPath=[(0,0),(0,1),(0,2),(0,3),(0,4),(1,4),(2,4),(3,4)]
 inner_path=[]
 outer_path=[]
 for i in range(0,len(shortestPath)-1):
@@ -23,10 +23,13 @@ for i in range(0,len(shortestPath)-1):
         if outcell2 not in outer_path:
             outer_path.append(outcell2)
 l=len(shortestPath)
-endi=(shortestPath[l-1][0]+1,shortestPath[l-1][1])
-outi=(shortestPath[l-1][0]-1,shortestPath[l-1][1])
-inner_path.append(endi)
-outer_path.append(outi)
+print(shortestPath[l-1])
+endi=(shortestPath[l-1][0],shortestPath[l-1][1]+1)
+print(endi)
+outi=(shortestPath[l-1][0]+1,shortestPath[l-1][1])
+print(outi)
+inner_path.append(outi)
+outer_path.append(endi)
 print(shortestPath)
 print(inner_path)
 print(outer_path)
