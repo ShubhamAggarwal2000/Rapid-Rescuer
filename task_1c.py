@@ -260,7 +260,7 @@ def maze_iso(img):
 
 def digit_recog(image):
     global count
-    new_model = tf.keras.models.load_model("task1_c_n.model")
+    # new_model = tf.keras.models.load_model("task1_c_n.model")
 
     temp = cv2.resize(255 - image, (26, 26))
     temp = np.pad(temp, ((1, 1), (1, 1)), "constant", constant_values=0)
@@ -273,14 +273,68 @@ def digit_recog(image):
     #print(predictions.argmax())
     predictions = np.argmax(predictions)
 
-    # if (count == 0):
-    #     count = 1
-    #     test = np.reshape(test, (l, 28, 28, 1))
-    #     predictions = model.predict(test)
-    #
-    # else:
-    #     test = np.reshape(test, (l, 28, 28, 1))
-    #     predictions = model.predict(test)
+    if (count == 0):
+        import tensorflow as tf
+        import keras
+        # set number of categories
+        num_category = 10
+        # convert class vectors to binary class matrices
+        y_train = keras.utils.to_categorical(y_train, num_category)
+        y_test = keras.utils.to_categorical(y_test, num_category)
+        # test = keras.utils.to_categorical(test , num_category)
+
+        model = Sequential()
+        # convolutional layer with rectified linear unit activation
+        model.add(Conv2D(32, kernel_size=(3, 3),
+                         activation='relu',
+                         input_shape=input_shape))
+        # 32 convolution filters used each of size 3x3
+        # again
+        model.add(Conv2D(64, (3, 3), activation='relu'))
+        model.add(MaxPooling2D(pool_size=(2, 2)))
+        model.add(Dropout(0.30))
+        model.add(Flatten())
+        model.add(Dense(128, activation='relu'))
+        # model.add(tf.keras.layers.Dropout(0.4))
+        model.add(Dropout(0.35))
+        model.add(Dense(num_category, activation='softmax'))
+        model.compile(loss=keras.losses.categorical_crossentropy,
+                      optimizer=keras.optimizers.Adadelta(),
+                      metrics=['accuracy'])
+        batch_size = 128
+        num_epoch = 30
+        # model training
+        model_log = model.fit(X_train, y_train,
+                              batch_size=batch_size,
+                              epochs=num_epoch,
+                              verbose=1,
+                              validation_data=(X_test, y_test))
+
+        count = 1
+        temp = cv2.resize(255 - image, (26, 26))
+        temp = np.pad(temp, ((1, 1), (1, 1)), "constant", constant_values=0)
+        img_arr = temp.reshape(1, 28, 28, 1)
+        img_arr = img_arr.astype('float32')
+        img_arr /= 255
+        # cv2.imshow("hehe",image)
+        predictions = new_model.predict(img_arr)
+        # pred = np.argmax(pred)
+        # print(predictions.argmax())
+        predictions = np.argmax(predictions)
+
+
+    else:
+        temp = cv2.resize(255 - image, (26, 26))
+        temp = np.pad(temp, ((1, 1), (1, 1)), "constant", constant_values=0)
+        img_arr = temp.reshape(1, 28, 28, 1)
+        img_arr = img_arr.astype('float32')
+        img_arr /= 255
+        # cv2.imshow("hehe",image)
+        predictions = new_model.predict(img_arr)
+        # pred = np.argmax(pred)
+        # print(predictions.argmax())
+        predictions = np.argmax(predictions)
+
     return predictions
 
 
