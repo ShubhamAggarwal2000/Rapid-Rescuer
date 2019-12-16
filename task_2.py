@@ -19,12 +19,12 @@
 '''
 
 
-# Team ID:			[ Team-ID ]
-# Author List:		[ Names of team members worked on this file separated by Comma: Name1, Name2, ... ]
+# Team ID:			[ 2177 ]
+# Author List:		[ Gaurav Nagotanekar, Shubham Aggarwal, Nilendu Ganguli, Gukan ]
 # Filename:			task_2.py
 # Functions:		findCombination
-# 					[ Comma separated list of functions in this file ]
-# Global variables:	[ List of global variables defined in this file ]
+# 					[ printAllSubsetsRec,  printAllSubsets ]
+# Global variables:	[ Digi_Sum ]
 
 
 # Import necessary modules
