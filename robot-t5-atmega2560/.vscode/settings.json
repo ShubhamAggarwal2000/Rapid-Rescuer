@@ -1,0 +1,11 @@
+{
+    "C_Cpp.errorSquiggles": "Disabled",
+    "files.associations": {
+        "*.tcc": "cpp",
+        "thread": "cpp",
+        "core": "cpp",
+        "*.txx": "cpp",
+        "limits": "c",
+        "mcp23017.h": "c"
+    }
+}

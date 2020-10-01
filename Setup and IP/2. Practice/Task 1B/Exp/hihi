@@ -1,0 +1,6 @@
+#include <stdio.h>
+int main() {
+	printf("Started");
+    return 0;
+}
+c
